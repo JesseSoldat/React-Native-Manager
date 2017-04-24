@@ -8,7 +8,10 @@ import {
 
 const INITIAL_STATE = {
 	email: '',
-	password: ''
+	password: '',
+	user: null,
+	error: '',
+	loading: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,14 +21,11 @@ export default (state = INITIAL_STATE, action) => {
 		case PASSWORD_CHANGED:
 			return {...state, password: action.payload };
 		case LOGIN_USER:
-			console.log('LOGIN_USER');
-			return state;
+			return {...state, loading: true, error: ''};
 		case LOGIN_USER_SUCCESS:
-			console.log('LOGIN_USER_SUCCESS');
-			return state;
+			return {...state, ...INITIAL_STATE, user: action.payload};
 		case LOGIN_USER_FAIL:
-			console.log('LOGIN_USER_FAIL');
-			return state;
+			return {...state, error: 'Authentication Failed', password: '', loading: false };
 		default:
 			return state;
 	}
